@@ -29,17 +29,17 @@ function RegistrationForm() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(registrationData), // Use the adjusted data here
+            body: JSON.stringify(registrationData), // adjusted data here
         });
 
         if (response.ok) {
             const data = await response.json();
             console.log('Registration successful', data);
-            // handle the successful registration (e.g., redirecting to login page)
+            // handle the successful registration (redirecting to login page)
         } else {
             const error = await response.json();
             console.error('Registration failed', error);
-            // handle errors (e.g., showing error messages to the user)
+            // handle errors (showing error messages to the user)
         }
     } catch (error) {
         console.error('Network error:', error);
