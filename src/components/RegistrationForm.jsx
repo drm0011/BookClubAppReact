@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styles from './RegistrationForm.module.css'; 
 
 function RegistrationForm() {
   const [formData, setFormData] = useState({
@@ -47,35 +48,24 @@ function RegistrationForm() {
     }
 };
 
-  return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="username">Username:</label>
-      <input
-        type="text"
-        id="username"
-        name="username"
-        value={formData.username}
-        onChange={handleChange}
-      />
-      <label htmlFor="email">Email:</label>
-      <input
-        type="email"
-        id="email"
-        name="email"
-        value={formData.email}
-        onChange={handleChange}
-      />
-      <label htmlFor="password">Password:</label>
-      <input
-        type="password"
-        id="password"
-        name="password"
-        value={formData.password}
-        onChange={handleChange}
-      />
-      <button type="submit">Register</button>
-    </form>
-  );
+return (
+        <form onSubmit={handleSubmit} className={styles.formContainer}>
+            <div className={styles.formInput}>
+                <label htmlFor="username">Username:</label>
+                <input type="text" id="username" name="username" value={formData.username} onChange={handleChange} />
+            </div>
+            <div className={styles.formInput}>
+                <label htmlFor="email">Email:</label>
+                <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} />
+            </div>
+            <div className={styles.formInput}>
+                <label htmlFor="password">Password:</label>
+                <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} />
+            </div>
+            <button type="submit" className={styles.submitButton}>Register</button>
+        </form>
+    );
 }
+
 
 export default RegistrationForm;
