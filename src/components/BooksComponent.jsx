@@ -1,37 +1,45 @@
-import React from 'react';
+const handleAddToReadingList = async (book) => {
+  const userId = 1;  // Hardcoded user ID for the user who owns the reading list
 
-const handleAddToReadingList = async (bookId) => {
-    const userId = process.env.REACT_APP_USER_ID; 
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/readinglist/add`, {
+  // Extract required information from the book object
+  const title = book.title || 'Unknown Title';
+  const author = Array.isArray(book.author_name) ? book.author_name.join(', ') : 'Author Unknown';
+  const publishYear = Array.isArray(book.publish_year) ? book.publish_year[0] : null;  // Take only the first publish year
+
+  // Make the POST request with the necessary data
+  const response = await fetch(`${process.env.REACT_APP_API_URL}/add`, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
+          'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ userId, bookId }),
-    });
-  
-    if (response.ok) {
+      body: JSON.stringify({
+          userId,  // Include userId
+          title,   // Include title
+          author,  // Include author
+          publishYear,  // Include first publish year
+      }),
+  });
+
+  if (response.ok) {
       alert('Book added to your reading list!');
-    } else {
+  } else {
       alert('Failed to add book to reading list.');
-    }
-  };
+  }
+};
 
 const BooksComponent = ({ books }) => {
-    return (
-        <div className='books-list'>
-            {books.map((book, index) => (
-                <div key={index} className='book-item'>
-                    <h3>{book.title /* add error handling for empty title, etc. */}</h3>
-                    {/* Check if author_name exists and is an array before joining, otherwise show default text */}
-                    <p>{Array.isArray(book.author_name) ? book.author_name.join(', ') : 'Author unknown'}</p>
-                    <p>{Array.isArray(book.publish_year) ? book.publish_year.join(', ') : 'Year not available'}</p>
-                    <p>{book.edition_key[0]}</p>
-                    <button onClick={() => handleAddToReadingList(book.id)}>Add to Reading List</button>
-                </div>
-            ))}
-        </div>
-    );
+  return (
+      <div className="books-list">
+          {books.map((book, index) => (
+              <div key={index} className="book-item">
+                  <h3>{book.title || 'Unknown Title'}</h3>
+                  <p>{Array.isArray(book.author_name) ? book.author_name.join(', ') : 'Author Unknown'}</p>
+                  <p>{Array.isArray(book.publish_year) ? book.publish_year.join(', ') : 'Year Not Available'}</p>
+                  <button onClick={() => handleAddToReadingList(book)}>Add to Reading List</button>  {/* Pass full book object */}
+              </div>
+          ))}
+      </div>
+  );
 };
 
 export default BooksComponent;
