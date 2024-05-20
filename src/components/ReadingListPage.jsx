@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { getReadingList, createReadingListItem, updateReadingListItem, deleteReadingListItem } from './APIService';
+import Chat from './Chat';
 
 const ReadingListPage = () => {
-    const userId = 1; // Hardcoded user ID
+    const userId = 4007; // Hardcoded user ID
     const [readingList, setReadingList] = useState([]);
     const [newItem, setNewItem] = useState({ title: '', author: '', publishYear: null });
     const [error, setError] = useState(null);
@@ -91,6 +92,7 @@ const ReadingListPage = () => {
                 />
                 <button onClick={handleCreate}>Add Book</button>
             </div>
+            <Chat />
         </div>
     );
 };
