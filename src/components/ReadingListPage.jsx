@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getReadingList, createReadingListItem, updateReadingListItem, deleteReadingListItem } from './APIService';
 import Chat from './Chat';
+import './ReadingListPage.css';
 
 const ReadingListPage = () => {
     const userId = 4007; // Hardcoded user ID
@@ -50,10 +51,10 @@ const ReadingListPage = () => {
     };
 
     return (
-        <div>
-            <h1>Your Reading List</h1>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            <ul>
+        <div className="page-container">
+            <h1 className="page-header">Your Reading List</h1>
+            {error && <p className="error-message">{error}</p>}
+            <ul className="reading-list">
                 {readingList.map(item => (
                     <li key={item.id}>
                         <input
@@ -70,7 +71,7 @@ const ReadingListPage = () => {
                     </li>
                 ))}
             </ul>
-            <div>
+            <div className="add-new-item">
                 <h2>Add New Book</h2>
                 <input
                     type="text"

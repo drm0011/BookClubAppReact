@@ -1,6 +1,6 @@
-// src/Chat.jsx
 import React, { useState, useEffect } from "react";
 import WebSocketChatService from "./WebSocketChatService";
+import './ReadingListPage.css'; // Assuming you want to keep all styles in one file
 
 const Chat = () => {
     const [message, setMessage] = useState("");
@@ -19,18 +19,20 @@ const Chat = () => {
     };
 
     return (
-        <div>
-            <div>
+        <div className="chat-container">
+            <div className="chat-history">
                 {chatHistory.map((msg, index) => (
                     <div key={index}>{msg}</div>
                 ))}
             </div>
-            <input
-                type="text"
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-            />
-            <button onClick={handleSendMessage}>Send</button>
+            <div className="chat-input-container">
+                <input
+                    type="text"
+                    value={message}
+                    onChange={(e) => setMessage(e.target.value)}
+                />
+                <button onClick={handleSendMessage}>Send</button>
+            </div>
         </div>
     );
 };

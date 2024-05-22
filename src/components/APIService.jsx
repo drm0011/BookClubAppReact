@@ -10,17 +10,17 @@ const handleResponse = async (response) => {
 };
 
 export const getReadingList = async (userId) => {
-    const response = await fetch(`${API_URL}/items?userId=${userId}`);
+    const response = await fetch(`${API_URL}/readinglist?userId=${userId}`);
     return await handleResponse(response);
 };
 
 export const getReadingListItem = async (id) => {
-    const response = await fetch(`${API_URL}/${id}`);
+    const response = await fetch(`${API_URL}/readinglist/${id}`);
     return await handleResponse(response);
 };
 
 export const createReadingListItem = async (item) => {
-    const response = await fetch(`${API_URL}/add`, {
+    const response = await fetch(`${API_URL}/readinglist`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -31,7 +31,7 @@ export const createReadingListItem = async (item) => {
 };
 
 export const updateReadingListItem = async (id, item) => {
-    const response = await fetch(`${API_URL}/update/${id}`, {
+    const response = await fetch(`${API_URL}/readinglist/${id}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ export const updateReadingListItem = async (id, item) => {
 };
 
 export const deleteReadingListItem = async (id) => {
-    const response = await fetch(`${API_URL}/delete/${id}`, {
+    const response = await fetch(`${API_URL}/readinglist/${id}`, {
         method: 'DELETE',
     });
     return await handleResponse(response);
