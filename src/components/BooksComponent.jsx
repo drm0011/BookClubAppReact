@@ -13,10 +13,10 @@ const handleAddToReadingList = async (book) => {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            userId,  // Include userId
-            title,   // Include title
-            author,  // Include author
-            publishYear,  // Include first publish year
+            userId,  
+            title,
+            author,  
+            publishYear,  
         }),
     });
 

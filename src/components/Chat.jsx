@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import WebSocketChatService from "./WebSocketChatService";
-import './ReadingListPage.css'; // Assuming you want to keep all styles in one file
+import './ReadingListPage.css'; 
 
 const Chat = () => {
     const [message, setMessage] = useState("");
