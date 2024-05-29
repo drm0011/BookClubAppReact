@@ -1,38 +1,54 @@
-import React, { useState, useEffect } from "react";
-import WebSocketChatService from "./WebSocketChatService";
+import React, { useState, useEffect } from 'react';
+import { sendMessage, onReceiveMessage, cleanupConnection } from '../services/signalrService';
 import './ReadingListPage.css'; 
 
 const Chat = () => {
+    const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState("");
-    const [chatHistory, setChatHistory] = useState([]);
+    const [user, setUser] = useState("User");
 
     useEffect(() => {
-        WebSocketChatService.connect("ws://localhost:5051/chat");
-        WebSocketChatService.socket.onmessage = (event) => {
-            setChatHistory((prevHistory) => [...prevHistory, event.data]);
+        const handleReceiveMessage = (user, message) => {
+            setMessages(prevMessages => [...prevMessages, { user, message }]);
+        };
+
+        onReceiveMessage(handleReceiveMessage);
+
+        return () => {
+            cleanupConnection();
         };
     }, []);
 
     const handleSendMessage = () => {
-        WebSocketChatService.sendMessage(message);
+        sendMessage(user, message);
         setMessage("");
     };
 
     return (
-        <div className="chat-container">
-            <div className="chat-history">
-                {chatHistory.map((msg, index) => (
-                    <div key={index}>{msg}</div>
-                ))}
+        <div>
+            <h1>Chat</h1>
+            <div>
+                <input
+                    type="text"
+                    value={user}
+                    onChange={(e) => setUser(e.target.value)}
+                    placeholder="Name"
+                />
             </div>
-            <div className="chat-input-container">
+            <div>
                 <input
                     type="text"
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
+                    placeholder="Message"
                 />
                 <button onClick={handleSendMessage}>Send</button>
             </div>
+            <ul>
+                {messages.map((msg, index) => (
+                    <li key={index}><strong>{msg.user}:</strong> {msg.message}</li>
+                ))}
+            </ul>
         </div>
     );
 };

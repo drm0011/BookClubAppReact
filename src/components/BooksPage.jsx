@@ -13,7 +13,7 @@ const BooksPage = () => {
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/books?q=${query}`);
             const data = await response.json();
-            setBooks(data.docs); // Adjust according to your API response
+            setBooks(data.docs); // Adjust according to API response
         } catch (error) {
             console.error("Failed to fetch books:", error); 
         } finally {
