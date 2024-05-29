@@ -4,7 +4,7 @@ import Chat from './Chat';
 import './ReadingListPage.css';
 
 const ReadingListPage = () => {
-    const userId = 4007; // Hardcoded user ID
+    const userId = 1; // Hardcoded user ID
     const [readingList, setReadingList] = useState([]);
     const [newItem, setNewItem] = useState({ title: '', author: '', publishYear: null });
     const [error, setError] = useState(null);

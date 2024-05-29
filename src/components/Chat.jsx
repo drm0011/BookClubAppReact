@@ -7,7 +7,7 @@ const Chat = () => {
     const [chatHistory, setChatHistory] = useState([]);
 
     useEffect(() => {
-        WebSocketChatService.connect("wss://localhost:7129/chat");
+        WebSocketChatService.connect("ws://localhost:5051/chat");
         WebSocketChatService.socket.onmessage = (event) => {
             setChatHistory((prevHistory) => [...prevHistory, event.data]);
         };
