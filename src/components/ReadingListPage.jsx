@@ -1,21 +1,34 @@
 import React, { useState, useEffect } from 'react';
-import { getReadingList, createReadingListItem, updateReadingListItem, deleteReadingListItem } from './APIService';
+import { getReadingList, createReadingListItem, updateReadingListItem, deleteReadingListItem, getReadingListMetadata } from './APIService';
 import Chat from './Chat';
 import './ReadingListPage.css';
 
 const ReadingListPage = () => {
     const userId = 1; // Hardcoded user ID
     const [readingList, setReadingList] = useState([]);
+    const [readingListId, setReadingListId] = useState(null);
     const [newItem, setNewItem] = useState({ title: '', author: '', publishYear: null });
     const [error, setError] = useState(null);
 
     useEffect(() => {
+        fetchReadingListMetadata();
         loadReadingList();
     }, []);
+
+    const fetchReadingListMetadata = async () => {
+        try {
+            const metadata = await getReadingListMetadata(userId);
+            setReadingListId(metadata.readingListId);
+            console.log("Current ReadingList ID:", metadata.readingListId); // Log the readingListId to the console
+        } catch (err) {
+            setError(err.message);
+        }
+    };
 
     const loadReadingList = async () => {
         try {
             const list = await getReadingList(userId);
+            console.log("Reading List API Response:", list); // Log the full API response
             setReadingList(list);
         } catch (err) {
             setError(err.message);
@@ -93,7 +106,7 @@ const ReadingListPage = () => {
                 />
                 <button onClick={handleCreate}>Add Book</button>
             </div>
-            <Chat />
+            {readingListId && <Chat readingListId={readingListId} />}
         </div>
     );
 };

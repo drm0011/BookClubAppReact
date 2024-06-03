@@ -30,6 +30,11 @@ export const createReadingListItem = async (item) => {
     return await handleResponse(response);
 };
 
+export const getReadingListMetadata = async (userId) => {
+    const response = await fetch(`${API_URL}/readinglist/metadata/${userId}`);
+    return await handleResponse(response);
+};
+
 export const updateReadingListItem = async (id, item) => {
     const response = await fetch(`${API_URL}/readinglist/${id}`, {
         method: 'PUT',
@@ -45,5 +50,9 @@ export const deleteReadingListItem = async (id) => {
     const response = await fetch(`${API_URL}/readinglist/${id}`, {
         method: 'DELETE',
     });
+    return await handleResponse(response);
+};
+export const getChatHistory = async (readingListId) => {
+    const response = await fetch(`${API_URL}/history/${readingListId}`);
     return await handleResponse(response);
 };

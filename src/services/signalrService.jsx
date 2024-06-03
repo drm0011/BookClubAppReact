@@ -7,8 +7,8 @@ const connection = new signalR.HubConnectionBuilder()
 
 connection.start().catch(err => console.error(err));
 
-export const sendMessage = (user, message) => {
-    connection.invoke("SendMessage", user, message).catch(err => console.error(err));
+export const sendMessage = (sender, message, readingListId) => {
+    connection.invoke("SendMessage", sender, message, readingListId).catch(err => console.error(err));
 };
 
 export const onReceiveMessage = (callback) => {
