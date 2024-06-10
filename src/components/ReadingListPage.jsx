@@ -41,9 +41,9 @@ const ReadingListPage = () => {
             setNewItem({ title: '', author: '', publishYear: null });
             loadReadingList();
         } catch (err) {
-            setError(err.message);
+            setError(err.response?.data || err.message);
         }
-    };
+    };    
 
     const handleUpdate = async (id, updatedItem) => {
         try {
