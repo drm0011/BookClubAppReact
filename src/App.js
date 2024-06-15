@@ -8,28 +8,34 @@ function App() {
     return (
         <Router>
             <div className="App">
-                <nav>
-                    <ul>
-                        <li>
-                            <Link to="/register">Register New User</Link>
-                        </li>
-                        <li>
-                            <Link to="/books">Search for Books</Link>
-                        </li>
-                        <li>
-                            <Link to="/reading-list">Your Reading List</Link>
-                        </li>
-                    </ul>
+                <nav className="navbar navbar-expand-lg navbar-light bg-light">
+                    <Link className="navbar-brand" to="/">Book Club</Link>
+                    <div className="collapse navbar-collapse">
+                        <ul className="navbar-nav mr-auto">
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/register">Register</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/books">Search for Books</Link>
+                            </li>
+                            <li className="nav-item">
+                                <Link className="nav-link" to="/reading-list">Your Reading List</Link>
+                            </li>
+                        </ul>
+                    </div>
                 </nav>
-                <Routes>
-                    <Route path="/register" element={<RegistrationForm />} />
-                    <Route path="/books" element={<BooksPage />} />
-                    <Route path="/reading-list" element={<ReadingListPage />} />
-                    <Route path="/" element={<h1>Welcome to the Book Club App</h1>} />
-                </Routes>
+                <div className="container mt-4">
+                    <Routes>
+                        <Route path="/register" element={<RegistrationForm />} />
+                        <Route path="/books" element={<BooksPage />} />
+                        <Route path="/reading-list" element={<ReadingListPage />} />
+                        <Route path="/" element={<h1>Welcome to the Book Club App</h1>} />
+                    </Routes>
+                </div>
             </div>
         </Router>
     );
 }
+
 
 export default App;

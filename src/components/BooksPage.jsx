@@ -21,9 +21,8 @@ const BooksPage = () => {
         }
     };
 
-
     return (
-        <div className='books-page'>
+        <div className='container mt-4'>
             <h1>Search for Books</h1>
             <SearchComponent onSearch={handleSearch} />
             {isLoading ? (

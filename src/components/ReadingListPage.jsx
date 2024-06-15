@@ -19,7 +19,7 @@ const ReadingListPage = () => {
         try {
             const metadata = await getReadingListMetadata(userId);
             setReadingListId(metadata.readingListId);
-            console.log("Current ReadingList ID:", metadata.readingListId); // Log the readingListId to the console
+            console.log("Current ReadingList ID:", metadata.readingListId);
         } catch (err) {
             setError(err.message);
         }
@@ -28,7 +28,7 @@ const ReadingListPage = () => {
     const loadReadingList = async () => {
         try {
             const list = await getReadingList(userId);
-            console.log("Reading List API Response:", list); // Log the full API response
+            console.log("Reading List API Response:", list);
             setReadingList(list);
         } catch (err) {
             setError(err.message);
@@ -64,48 +64,53 @@ const ReadingListPage = () => {
     };
 
     return (
-        <div className="page-container">
-            <h1 className="page-header">Your Reading List</h1>
-            {error && <p className="error-message">{error}</p>}
-            <ul className="reading-list">
+        <div className="container mt-4">
+            <h1>Your Reading List</h1>
+            {error && <div className="alert alert-danger">{error}</div>}
+            <ul className="list-group">
                 {readingList.map(item => (
-                    <li key={item.id}>
+                    <li key={item.id} className="list-group-item d-flex justify-content-between align-items-center">
                         <input
                             type="text"
                             value={item.title}
                             onChange={(e) => handleUpdate(item.id, { ...item, title: e.target.value })}
+                            className="form-control mr-2"
                         />
                         <input
                             type="text"
                             value={item.author}
                             onChange={(e) => handleUpdate(item.id, { ...item, author: e.target.value })}
+                            className="form-control mr-2"
                         />
-                        <button onClick={() => handleDelete(item.id)}>Delete</button>
+                        <button onClick={() => handleDelete(item.id)} className="btn btn-danger">Delete</button>
                     </li>
                 ))}
             </ul>
-            <div className="add-new-item">
+            <div className="mt-4">
                 <h2>Add New Book</h2>
                 <input
                     type="text"
                     placeholder="Title"
                     value={newItem.title}
                     onChange={(e) => setNewItem({ ...newItem, title: e.target.value })}
+                    className="form-control mb-2"
                 />
                 <input
                     type="text"
                     placeholder="Author"
                     value={newItem.author}
                     onChange={(e) => setNewItem({ ...newItem, author: e.target.value })}
+                    className="form-control mb-2"
                 />
                 <input
                     type="number"
                     placeholder="Publish Year"
                     value={newItem.publishYear || ''}
                     onChange={(e) => setNewItem({ ...newItem, publishYear: parseInt(e.target.value) })}
+                    className="form-control mb-2"
                 />
-                <button onClick={handleCreate}>Add Book</button>
-            </div>
+                <button onClick={handleCreate} className="btn btn-primary">Add Book</button>
+            </div> <br/>
             {readingListId && <Chat readingListId={readingListId} />}
         </div>
     );

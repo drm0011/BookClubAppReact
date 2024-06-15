@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { sendMessage, onReceiveMessage, cleanupConnection } from '../services/signalrService';
 import { getChatHistory } from './APIService';
-import './ReadingListPage.css';
+import './Chat.css';
 
 const Chat = ({ readingListId }) => {
     const [messages, setMessages] = useState([]);
@@ -34,37 +34,39 @@ const Chat = ({ readingListId }) => {
         const chatMessageDto = {
             sender: user,
             message: message,
-            readingListId: readingListId // Ensure this prop is passed correctly
+            readingListId: readingListId
         };
         sendMessage(chatMessageDto.sender, chatMessageDto.message, chatMessageDto.readingListId);
         setMessage("");
     };
 
     return (
-        <div>
-            <h1>Chat</h1>
-            <div>
+        <div className="chat-container">
+            <h1>Comments</h1>
+            <div className="chat-input-container">
                 <input
                     type="text"
                     value={user}
                     onChange={(e) => setUser(e.target.value)}
                     placeholder="Name"
+                    className="chat-input"
                 />
-            </div>
-            <div>
                 <input
                     type="text"
                     value={message}
                     onChange={(e) => setMessage(e.target.value)}
                     placeholder="Message"
+                    className="chat-input"
                 />
-                <button onClick={handleSendMessage}>Send</button>
+                <button onClick={handleSendMessage} className="chat-button">Send</button>
             </div>
-            <ul>
+            <div className="chat-messages">
                 {messages.map((msg, index) => (
-                    <li key={index}><strong>{msg.sender}:</strong> {msg.message}</li>
+                    <div key={index} className="chat-message">
+                        <strong>{msg.sender}:</strong> {msg.message}
+                    </div>
                 ))}
-            </ul>
+            </div>
         </div>
     );
 };

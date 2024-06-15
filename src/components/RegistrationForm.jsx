@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from './RegistrationForm.module.css'; 
+import './RegistrationForm.module.css'; 
 
 function RegistrationForm() {
   const [formData, setFormData] = useState({
@@ -30,42 +30,38 @@ function RegistrationForm() {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify(registrationData), // adjusted data here
+            body: JSON.stringify(registrationData),
         });
 
         if (response.ok) {
             const data = await response.json();
             console.log('Registration successful', data);
-            // handle the successful registration (redirecting to login page)
         } else {
             const error = await response.json();
             console.error('Registration failed', error);
-            // handle errors (showing error messages to the user)
         }
     } catch (error) {
         console.error('Network error:', error);
-        // Handle network errors
     }
 };
 
 return (
-        <form onSubmit={handleSubmit} className={styles.formContainer}>
-            <div className={styles.formInput}>
+        <form onSubmit={handleSubmit} className="form-container">
+            <div className="form-group">
                 <label htmlFor="username">Username:</label>
-                <input type="text" id="username" name="username" value={formData.username} onChange={handleChange} />
+                <input type="text" id="username" name="username" className="form-control" value={formData.username} onChange={handleChange} />
             </div>
-            <div className={styles.formInput}>
+            <div className="form-group">
                 <label htmlFor="email">Email:</label>
-                <input type="email" id="email" name="email" value={formData.email} onChange={handleChange} />
+                <input type="email" id="email" name="email" className="form-control" value={formData.email} onChange={handleChange} />
             </div>
-            <div className={styles.formInput}>
+            <div className="form-group">
                 <label htmlFor="password">Password:</label>
-                <input type="password" id="password" name="password" value={formData.password} onChange={handleChange} />
+                <input type="password" id="password" name="password" className="form-control" value={formData.password} onChange={handleChange} />
             </div>
-            <button type="submit" className={styles.submitButton}>Register</button>
+            <button type="submit" className="btn btn-primary">Register</button>
         </form>
     );
 }
-
 
 export default RegistrationForm;
