@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import RegistrationForm from './components/RegistrationForm';
+import LoginForm from './components/LoginForm';
 import BooksPage from './components/BooksPage';
 import ReadingListPage from './components/ReadingListPage';
 
@@ -16,6 +17,9 @@ function App() {
                                 <Link className="nav-link" to="/register">Register</Link>
                             </li>
                             <li className="nav-item">
+                                <Link className="nav-link" to="/login">Login</Link>
+                            </li>
+                            <li className="nav-item">
                                 <Link className="nav-link" to="/books">Search for Books</Link>
                             </li>
                             <li className="nav-item">
@@ -27,6 +31,7 @@ function App() {
                 <div className="container mt-4">
                     <Routes>
                         <Route path="/register" element={<RegistrationForm />} />
+                        <Route path="/login" element={<LoginForm/>}/>
                         <Route path="/books" element={<BooksPage />} />
                         <Route path="/reading-list" element={<ReadingListPage />} />
                         <Route path="/" element={<h1>Welcome to the Book Club App</h1>} />
