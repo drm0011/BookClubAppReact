@@ -1,23 +1,36 @@
 import React from 'react';
+import {jwtDecode} from 'jwt-decode';
 
 const getCoverImage = (coverId) => {
     return coverId ? `https://covers.openlibrary.org/b/id/${coverId}-M.jpg` : 'https://via.placeholder.com/150';
 };
 
 const handleAddToReadingList = async (book) => {
-    const userId = 1;  // Hardcoded user ID for the user who owns the reading list
+    const token = localStorage.getItem('token');
+    if (!token) {
+        alert('You need to be logged in to add books to your reading list.');
+        return;
+    }
+
+    const decodedToken = jwtDecode(token);
+    const userId = decodedToken ? decodedToken.nameid : null;
+    
+    if (!userId) {
+        alert('Invalid user token. Please log in again.');
+        return;
+    }
 
     // Extract required information from the book object
     const title = book.title || 'Unknown Title';
     const author = Array.isArray(book.author_name) ? book.author_name.join(', ') : 'Author Unknown';
     const publishYear = Array.isArray(book.publish_year) ? book.publish_year[0] : null;  // Take only the first publish year
-    
 
     // Make the POST request with the necessary data
     const response = await fetch(`${process.env.REACT_APP_API_URL}/readinglist`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify({
             userId,  

@@ -1,19 +1,25 @@
 import React, { useState, useEffect } from 'react';
+import { jwtDecode } from 'jwt-decode';
 import { getReadingList, createReadingListItem, updateReadingListItem, deleteReadingListItem, getReadingListMetadata } from './APIService';
 import Chat from './Chat';
 import './ReadingListPage.css';
 
 const ReadingListPage = () => {
-    const userId = 1; // Hardcoded user ID
+    const token = localStorage.getItem('token');
+    const decodedToken = token ? jwtDecode(token) : null; // Use the correct import
+    const userId = decodedToken ? decodedToken.nameid : null; // Use the `nameid` field for user ID
+
     const [readingList, setReadingList] = useState([]);
     const [readingListId, setReadingListId] = useState(null);
     const [newItem, setNewItem] = useState({ title: '', author: '', publishYear: null });
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        fetchReadingListMetadata();
-        loadReadingList();
-    }, []);
+        if (userId) {
+            fetchReadingListMetadata();
+            loadReadingList();
+        }
+    }, [userId]);
 
     const fetchReadingListMetadata = async () => {
         try {
@@ -43,7 +49,7 @@ const ReadingListPage = () => {
         } catch (err) {
             setError(err.response?.data || err.message);
         }
-    };    
+    };
 
     const handleUpdate = async (id, updatedItem) => {
         try {
@@ -110,7 +116,8 @@ const ReadingListPage = () => {
                     className="form-control mb-2"
                 />
                 <button onClick={handleCreate} className="btn btn-primary">Add Book</button>
-            </div> <br/>
+            </div>
+            <br/>
             {readingListId && <Chat readingListId={readingListId} />}
         </div>
     );

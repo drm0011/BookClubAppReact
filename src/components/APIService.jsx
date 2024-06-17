@@ -9,38 +9,48 @@ const handleResponse = async (response) => {
     return text ? JSON.parse(text) : {}; // Handle empty response
 };
 
+const getAuthHeaders = () => {
+    const token = localStorage.getItem('token');
+    return {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+    };
+};
+
 export const getReadingList = async (userId) => {
-    const response = await fetch(`${API_URL}/readinglist?userId=${userId}`);
+    const response = await fetch(`${API_URL}/readinglist?userId=${userId}`, {
+        headers: getAuthHeaders()
+    });
     return await handleResponse(response);
 };
 
 export const getReadingListItem = async (id) => {
-    const response = await fetch(`${API_URL}/readinglist/${id}`);
+    const response = await fetch(`${API_URL}/readinglist/${id}`, {
+        headers: getAuthHeaders()
+    });
     return await handleResponse(response);
 };
 
 export const createReadingListItem = async (item) => {
     const response = await fetch(`${API_URL}/readinglist`, {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
+        headers: getAuthHeaders(),
         body: JSON.stringify(item),
     });
     return await handleResponse(response);
 };
 
 export const getReadingListMetadata = async (userId) => {
-    const response = await fetch(`${API_URL}/readinglist/metadata/${userId}`);
+    const response = await fetch(`${API_URL}/readinglist/metadata/${userId}`, {
+        headers: getAuthHeaders()
+    });
     return await handleResponse(response);
 };
 
 export const updateReadingListItem = async (id, item) => {
     const response = await fetch(`${API_URL}/readinglist/${id}`, {
         method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-        },
+        headers: getAuthHeaders(),
         body: JSON.stringify(item),
     });
     return await handleResponse(response);
@@ -49,10 +59,14 @@ export const updateReadingListItem = async (id, item) => {
 export const deleteReadingListItem = async (id) => {
     const response = await fetch(`${API_URL}/readinglist/${id}`, {
         method: 'DELETE',
+        headers: getAuthHeaders()
     });
     return await handleResponse(response);
 };
+
 export const getChatHistory = async (readingListId) => {
-    const response = await fetch(`${API_URL}/history/${readingListId}`);
+    const response = await fetch(`${API_URL}/history/${readingListId}`, {
+        headers: getAuthHeaders()
+    });
     return await handleResponse(response);
 };
