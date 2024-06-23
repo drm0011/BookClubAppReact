@@ -59,6 +59,7 @@ function RegistrationForm() {
 
   return (
     <form onSubmit={handleSubmit} className="form-container">
+              <h2>Register</h2>
         <div className="form-group">
             <label htmlFor="username">Username:</label>
             <input
@@ -92,6 +93,7 @@ function RegistrationForm() {
               onChange={handleChange}
             />
         </div>
+        <br/>
         {errorMessage && <div className="error-message">{errorMessage}</div>}
         <button type="submit" className="btn btn-primary">Register</button>
     </form>

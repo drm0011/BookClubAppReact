@@ -74,6 +74,7 @@ function LoginForm() {
             onChange={handleChange}
           />
         </div>
+        <br/>
         {errorMessage && <div className="error-message">{errorMessage}</div>}
         <button type="submit" className="btn btn-primary">Login</button>
       </form>
