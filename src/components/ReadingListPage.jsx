@@ -6,8 +6,8 @@ import './ReadingListPage.css';
 
 const ReadingListPage = () => {
     const token = localStorage.getItem('token');
-    const decodedToken = token ? jwtDecode(token) : null; // Use the correct import
-    const userId = decodedToken ? decodedToken.nameid : null; // Use the `nameid` field for user ID
+    const decodedToken = token ? jwtDecode(token) : null; // Use correct import
+    const userId = decodedToken ? decodedToken.nameid : null; // Use `nameid` field for user ID
 
     const [readingList, setReadingList] = useState([]);
     const [readingListId, setReadingListId] = useState(null);

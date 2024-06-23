@@ -6,9 +6,14 @@ import './Chat.css';
 const Chat = ({ readingListId }) => {
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState("");
-    const [user, setUser] = useState("User");
+    const [user, setUser] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
 
     useEffect(() => {
+        // Retrieve user information from localStorage
+        const loggedInUser = localStorage.getItem('username') || 'Anonymous';
+        setUser(loggedInUser);
+
         const fetchChatHistory = async () => {
             try {
                 const chatHistory = await getChatHistory(readingListId);
@@ -31,6 +36,12 @@ const Chat = ({ readingListId }) => {
     }, [readingListId]);
 
     const handleSendMessage = () => {
+        if (message.trim() === "") {
+            setErrorMessage("Message cannot be empty");
+            return;
+        }
+        setErrorMessage("");
+
         const chatMessageDto = {
             sender: user,
             message: message,
@@ -43,12 +54,12 @@ const Chat = ({ readingListId }) => {
     return (
         <div className="chat-container">
             <h1>Comments</h1>
+            {errorMessage && <div className="error-message">{errorMessage}</div>}
             <div className="chat-input-container">
                 <input
                     type="text"
                     value={user}
-                    onChange={(e) => setUser(e.target.value)}
-                    placeholder="Name"
+                    readOnly
                     className="chat-input"
                 />
                 <input

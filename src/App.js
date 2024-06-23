@@ -28,7 +28,7 @@ function App() {
                 <Link className="nav-link" to="/reading-list">Your Reading List</Link>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" to="/logout">Logout</Link> {/* Add the logout link */}
+                <Link className="nav-link" to="/logout">Logout</Link>
               </li>
             </ul>
           </div>
@@ -46,7 +46,7 @@ function App() {
                 </PrivateRoute>
               }
             />
-            <Route path="/logout" element={<Logout />} /> {/* Add the logout route */}
+            <Route path="/logout" element={<Logout />} />
             <Route path="/" element={<h1>Welcome to the Book Club App</h1>} />
           </Routes>
         </div>

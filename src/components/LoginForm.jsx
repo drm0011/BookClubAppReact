@@ -6,6 +6,7 @@ function LoginForm() {
     username: '',
     password: '',
   });
+  const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate();
 
   const handleChange = (event) => {
@@ -14,6 +15,7 @@ function LoginForm() {
       ...formData,
       [name]: value,
     });
+    setErrorMessage(''); // Clear error message on input change
   };
 
   const handleSubmit = async (event) => {
@@ -35,13 +37,14 @@ function LoginForm() {
       if (response.ok) {
         const data = await response.json();
         localStorage.setItem('token', data.token);
-        navigate('/reading-list'); // Redirect to a protected route
+        localStorage.setItem('username', formData.username);
+        navigate('/reading-list'); // Redirect to protected route
       } else {
         const error = await response.json();
-        console.error('Login failed', error);
+        setErrorMessage(error.message || 'Login failed');
       }
     } catch (error) {
-      console.error('Network error:', error);
+      setErrorMessage('Network error');
     }
   };
 
@@ -71,6 +74,7 @@ function LoginForm() {
             onChange={handleChange}
           />
         </div>
+        {errorMessage && <div className="error-message">{errorMessage}</div>}
         <button type="submit" className="btn btn-primary">Login</button>
       </form>
     </div>
