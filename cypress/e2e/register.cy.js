@@ -2,7 +2,7 @@ describe('Registration Form', () => {
     const apiUrl = Cypress.env('REACT_APP_API_URL');
   
     beforeEach(() => {
-      cy.visit('/register'); // Visit the base URL
+      cy.visit('/register'); 
     });
   
     it('should display error message when fields are empty', () => {

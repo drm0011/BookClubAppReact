@@ -7,6 +7,7 @@ import ReadingListPage from './components/ReadingListPage';
 import PrivateRoute from './components/PrivateRoute';
 import Logout from './components/Logout';
 import Navbar from './components/Navbar';
+import HomePage from './components/Homepage';
 
 function App() {
   return (
@@ -27,7 +28,7 @@ function App() {
               }
             />
             <Route path="/logout" element={<Logout />} />
-            <Route path="/" element={<h1>Welcome to the Book Club App</h1>} />
+            <Route path="/" element={<HomePage />} />
           </Routes>
         </div>
       </div>
