@@ -21,17 +21,30 @@ const UserDirectoryPage = () => {
 
     return (
         <div className="container mt-4">
-            <h1>User Directory</h1>
+            <h1 className="mb-4">User Directory</h1>
             {error && <div className="alert alert-danger">{error}</div>}
-            <ul className="list-group">
-                {users.map(user => (
-                    <li key={user.id} className="list-group-item">
-                        <Link to={`/reading-list/other/${user.id}`}>
-                            {user.username}'s Reading List
-                        </Link>
-                    </li>
-                ))}
-            </ul>
+            <div className="table-responsive">
+                <table className="table table-hover">
+                    <thead className="thead-dark">
+                        <tr>
+                            <th scope="col">Username</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {users.map(user => (
+                            <tr key={user.id}>
+                                <td>{user.username}</td>
+                                <td>
+                                    <Link to={`/reading-list/other/${user.id}`} className="btn btn-primary btn-sm">
+                                        View Reading List
+                                    </Link>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 };
