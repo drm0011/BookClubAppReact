@@ -33,6 +33,9 @@ function Navbar() {
           <Link className="nav-link" to="/reading-list">Your Reading List</Link>
         </li>
         <li className="nav-item">
+            <Link className="nav-link" to="/users">User Directory</Link>
+          </li>
+        <li className="nav-item">
           <Link className="nav-link" to="/logout">Logout</Link>
         </li>
       </ul>

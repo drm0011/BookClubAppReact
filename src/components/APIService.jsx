@@ -24,6 +24,13 @@ export const getOtherUserReadingList = async (userId) => {
     return await handleResponse(response);
 };
 
+export const getAllUsers = async () => {
+    const response = await fetch(`${API_URL}/users`, {
+        headers: getAuthHeaders()
+    });
+    return await handleResponse(response);
+};
+
 
 export const getReadingList = async (userId) => {
     const response = await fetch(`${API_URL}/readinglist?userId=${userId}`, {

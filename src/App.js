@@ -4,6 +4,7 @@ import LoginForm from './components/LoginForm';
 import BooksPage from './components/BooksPage';
 import ReadingListPage from './components/ReadingListPage';
 import ReadOnlyReadingListPage from './components/ReadOnlyReadingListPage';
+import UserDirectoryPage from './components/UserDirectoryPage';
 import PrivateRoute from './components/PrivateRoute';
 import Logout from './components/Logout';
 import Navbar from './components/Navbar';
@@ -32,6 +33,14 @@ function App() {
               element={
                 <PrivateRoute>
                   <ReadOnlyReadingListPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/users"
+              element={
+                <PrivateRoute>
+                  <UserDirectoryPage />
                 </PrivateRoute>
               }
             />
