@@ -17,6 +17,14 @@ const getAuthHeaders = () => {
     };
 };
 
+export const getOtherUserReadingList = async (userId) => {
+    const response = await fetch(`${API_URL}/readinglist/other?userId=${userId}`, {
+        headers: getAuthHeaders()
+    });
+    return await handleResponse(response);
+};
+
+
 export const getReadingList = async (userId) => {
     const response = await fetch(`${API_URL}/readinglist?userId=${userId}`, {
         headers: getAuthHeaders()

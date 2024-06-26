@@ -1,9 +1,9 @@
-import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import RegistrationForm from './components/RegistrationForm';
 import LoginForm from './components/LoginForm';
 import BooksPage from './components/BooksPage';
 import ReadingListPage from './components/ReadingListPage';
+import ReadOnlyReadingListPage from './components/ReadOnlyReadingListPage';
 import PrivateRoute from './components/PrivateRoute';
 import Logout from './components/Logout';
 import Navbar from './components/Navbar';
@@ -24,6 +24,14 @@ function App() {
               element={
                 <PrivateRoute>
                   <ReadingListPage />
+                </PrivateRoute>
+              }
+            />
+            <Route
+              path="/reading-list/other/:userId"
+              element={
+                <PrivateRoute>
+                  <ReadOnlyReadingListPage />
                 </PrivateRoute>
               }
             />
